@@ -1,0 +1,20 @@
+{
+  "name": "videotekfront",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.25",
+    "core-js": "^3.8.3",
+    "video.js": "^7.18.1",
+    "videojs-youtube": "^2.6.1",
+    "vue": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "vue-router": "^3.5.2",
+    "vuetify": "^2.6.4",
+    "uuid": "^8.3.2"
+  }
+}
