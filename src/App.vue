@@ -94,20 +94,16 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { host } from './server/settings.js'
 /*
-import logo from "./assets/videotek.jpg"
-import filmIcon from "./assets/filmicon.png"
-import serials from "./assets/serials.png"
-import zvezda from "./assets/zvezda.png"
-import media from "./assets/media.png"
-import newFilm from "./assets/newfilm.png"
 import LoginButton from "./components/LoginButton"
 import Search from "./components/Search"
 */
 
 export default {
   name: "App",
-  components: { /*Search, LoginButton*/ },
+  // components: { /*Search, LoginButton*/ },
   data: () => ({
     drawer: false,
     group: null,
@@ -125,6 +121,13 @@ export default {
   }),
   beforeCreate() {
     document.body.className = "app"
+    document.title = "Videotek"
+    this.logo = host + '/images/videotek.jpg'
+    this.filmIcon = host + '/images/filmicon.png'
+    this.serials = host + '/images/serials.png'
+    this.zvezda = host + '/images/zvezda.png'
+    this.media = host + '/images/media.png'
+    this.newFilm = host + '/images/newfilm.png'
   }
 };
 </script>
@@ -153,7 +156,6 @@ export default {
   height: 20px;
 }
 .logo {
-  font-family: "Roboto", serif;
   font-weight: 900;
   text-decoration: none;
   color: white;
