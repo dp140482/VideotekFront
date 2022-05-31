@@ -107,28 +107,30 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    logo,
-    filmIcon,
-    serials,
-    zvezda,
-    media,
-    newFilm,
+    logo: null,
+    filmIcon: null,
+    serials: null,
+    zvezda: null,
+    media: null,
+    newFilm: null,
     icons: ["mdi-odnoklassniki", "mdi-github", "mdi-trello", "mdi-discord"],
     show: false,
-    search:'',
-    filmsAndSerials:[],
+    search: '',
+    filmsAndSerials: [],
     userName: ''
   }),
   beforeCreate() {
     document.body.className = "app"
     document.title = "Videotek"
+  },
+  created() {
     this.logo = host + '/images/videotek.jpg'
     this.filmIcon = host + '/images/filmicon.png'
     this.serials = host + '/images/serials.png'
     this.zvezda = host + '/images/zvezda.png'
     this.media = host + '/images/media.png'
     this.newFilm = host + '/images/newfilm.png'
-  }
+  },
 };
 </script>
 
