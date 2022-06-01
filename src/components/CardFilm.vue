@@ -5,7 +5,7 @@
       :to="{ name: 'filmPage', params: { route: film.route } }"
     -->
       <div class="poster">
-        <img :src="getImgUrl(film.img)" alt="film" class="poster-img" />
+        <img :src="getImgUrl(film.image)" alt="film" class="poster-img" />
         <p class="score" v-if="film.score">{{ film.score }}</p>
       </div>
       <p class="title">{{ film.title }}</p>

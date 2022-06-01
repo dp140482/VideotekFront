@@ -1,8 +1,8 @@
 <template>
   <div class="main-page">
     <!-- FilmCarousel / -->
-    <!-- ListFilms header="Лучшие" :filmsList="ratingFilms" :key="getKey()" />
-    <ListFilms header="Новинки" :filmsList="newestFilms" :key="getKey()" /-->
+    <ListFilms header="Лучшие" :filmsList="ratingFilms" :key="getKey()" />
+    <ListFilms header="Новинки" :filmsList="newestFilms" :key="getKey()" />
   </div>
 </template>
 
