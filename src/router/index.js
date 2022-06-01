@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainPage from '../components/MainPage.vue'
-/*
 import FilmPage from '../components/FilmPage.vue'
+/*
 import PersonPage from '../components/PersonPage.vue'
 import Films from '../components/Films.vue'
 import Media from '../components/Media.vue'
@@ -24,7 +24,12 @@ const routes = [
     path: '/main',
     name: 'MainPage',
     component: MainPage
-  }// ,
+  },
+  {
+    path: '/films/:route',
+    name: 'filmPage',
+    component: FilmPage
+  },
   /*
   {
     path: '/login',
@@ -40,11 +45,6 @@ const routes = [
     path: '/films',
     name: 'Films',
     component: Films
-  },
-  {
-    path: '/films/:route',
-    name: 'filmPage',
-    component: FilmPage
   },
   {
     path: '/serials',

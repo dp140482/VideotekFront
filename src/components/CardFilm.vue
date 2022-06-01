@@ -1,15 +1,15 @@
 <template>
   <figure class="card">
-    <!-- router-link
+    <router-link
       class="router-link-card"
       :to="{ name: 'filmPage', params: { route: film.route } }"
-    -->
+    >
       <div class="poster">
         <img :src="getImgUrl(film.image)" alt="film" class="poster-img" />
         <p class="score" v-if="film.rating">{{ (+film.rating).toPrecision(2) }}</p>
       </div>
       <p class="title">{{ film.title }}</p>
-    <!--/router-link-->
+    </router-link>
   </figure>
 </template>
 

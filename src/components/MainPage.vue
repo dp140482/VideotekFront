@@ -30,7 +30,7 @@ export default {
     axios
       .post(host + '/get-films', { order: 'newest', arrayLength: 6 })
       .then( result => {
-        console.log(result)
+        console.log(result.data)
         this.newestFilms = result.data
         console.log(this.newestFilms)
       })
