@@ -13,8 +13,14 @@
     "videojs-youtube": "^2.6.1",
     "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
+    "vue-loader": "^15.9.8",
     "vue-router": "^3.5.2",
     "vuetify": "^2.6.4",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "vue-cli-plugin-vuetify": "~2.4.8"
   }
 }
