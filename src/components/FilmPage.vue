@@ -6,7 +6,7 @@
           <img :src="getImgUrl(filmData.image)" alt="film data" />
           <button class="btn">В избранное</button>
           <button
-            v-if="filmData.trailer && filmData.type_id !== 3"
+            v-if="filmData.trailer && filmData.type !== 'video'"
             class="btn"
             @click="isTrailer = !isTrailer"
           >
@@ -92,13 +92,13 @@
         </span>
       </div>
       <h2 class="underlined">Отзывы</h2>
-      <!-- Comment :filmId="filmData.id" /-->
+      <Comment :filmRoute="filmData.route" />
     </div>
   </div>
 </template>
 
 <script>
-// import Comment from './Comment.vue'
+import Comment from './Comment.vue'
 // import SerialWatchLine from './SerialWatchLine.vue'
 import FilmPlayers from './FilmPlayers.vue'
 import axios from 'axios'
@@ -106,7 +106,7 @@ import { host } from '@/server/settings.js'
 
 export default {
   name: "FilmPage",
-  components: { FilmPlayers },
+  components: { Comment, FilmPlayers },
   data: () => ({
     filmData: undefined,
     isTrailer: false,
