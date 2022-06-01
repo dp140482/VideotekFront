@@ -49,9 +49,9 @@
           </v-toolbar-title>
 
           <v-spacer />
-          <Search />
+          <!-- <Search />
           <LoginButton />
-          <!-- v-btn icon>
+           v-btn icon>
             <v-icon>mdi-heart</v-icon>
           </v-btn -->
         </v-app-bar>
@@ -121,7 +121,6 @@ export default {
   }),
   beforeCreate() {
     document.body.className = "app"
-    document.title = "Videotek"
   },
   created() {
     this.logo = host + '/images/videotek.jpg'
