@@ -11,14 +11,12 @@
               <v-row
                 class="slider-style"
                 align="center"
-                justify="center"
-              >
+                justify="center">
                 <CardFilm
                   v-for="film in filmsList"
                   :key="film.id"
                   :film="film"
-                  :img="film.img"
-                />
+                  :img="film.img"/>
               </v-row>
             </v-card>
         </v-slide-group>

@@ -11,30 +11,29 @@
         v-model="drawer"
       >
         <div class="listLink">
-          <router-link class="logo link" to="/main"
-            ><h1>VIDEOTEK</h1></router-link
-          >
+          <router-link class="logo link" to="/main">
+            <h1>VIDEOTEK</h1>
+          </router-link>
           <hr class="line" />
-          <router-link class="link" to="/films"
-            ><p><img :src="filmIcon" class="iconList" />Фильмы</p></router-link
-          >
+          <router-link class="link" to="/films">
+            <p><img :src="filmIcon" class="iconList" alt="filmIcon"/>Фильмы</p>
+          </router-link>
           <hr class="line" />
-          <router-link class="link" to="/serials"
-            ><p><img :src="serials" class="iconList" />Сериалы</p></router-link
-          >
+          <router-link class="link" to="/serials">
+            <p><img :src="serials" class="iconList" alt="serials"/>Сериалы</p>
+          </router-link>
           <hr class="line" />
-          <router-link class="link" to="/media"
-            ><p><img :src="media" class="iconList" />Медиа</p></router-link
-          >
-          <!-- <router-link class="link" to="/"
-          ><p><img :src="newfilm" class="iconList" />Новинки</p></router-link
-        > -->
+          <router-link class="link" to="/media">
+            <p><img :src="media" class="iconList" alt="media"/>Медиа</p>
+          </router-link>
           <hr class="line" />
-         <!-- <router-link class="link" to="/"
-            ><p>
-              <img :src="zvezda" class="iconList" />Ваша подборка
-            </p></router-link
-          >
+          <!-- <router-link class="link" to="/">
+          <p><img :src="newFilm" class="iconList" />Новинки</p>
+          </router-link>
+          <hr class="line" />
+         <router-link class="link" to="/">
+         <p><img :src="zvezda" class="iconList" />Ваша подборка</p>
+         </router-link>
           <hr class="line" /> -->
         </div>
       </v-navigation-drawer>
@@ -84,7 +83,7 @@
             <p>Служба поддержки</p>
           </div>
           <hr />
-          <div class="foterTextbottom">
+          <div class="footerTextBottom">
             <p>&#169;2022-Videotek</p>
           </div>
         </div>
@@ -94,7 +93,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import { host } from './server/settings.js'
 /*
 import LoginButton from "./components/LoginButton"
@@ -102,7 +101,7 @@ import Search from "./components/Search"
 */
 
 export default {
-  name: "App",
+  name: 'App',
   // components: { /*Search, LoginButton*/ },
   data: () => ({
     drawer: false,
@@ -113,14 +112,14 @@ export default {
     zvezda: null,
     media: null,
     newFilm: null,
-    icons: ["mdi-odnoklassniki", "mdi-github", "mdi-trello", "mdi-discord"],
+    icons: ['mdi-odnoklassniki', 'mdi-github', 'mdi-trello', 'mdi-discord'],
     show: false,
     search: '',
     filmsAndSerials: [],
     userName: ''
   }),
   beforeCreate() {
-    document.body.className = "app"
+    document.body.className = 'app'
   },
   created() {
     this.logo = host + '/images/videotek.jpg'
@@ -204,10 +203,10 @@ export default {
   font-size: 12pt;
   opacity: 0.5;
 }
-.foterTextbottom {
+.footerTextBottom {
   margin: 0 auto;
 }
-.foterTextbottom p {
+.footerTextBottom p {
   text-align: center;
   font-size: 12pt;
   opacity: 0.5;

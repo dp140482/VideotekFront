@@ -8,7 +8,7 @@
 
 <script>
 import axios from 'axios'
-import { host } from './../server/settings.js'
+import { host } from '@/server/settings'
 import { v4 as uuid } from 'uuid'
 import FilmCarousel from './FilmCarousel.vue'
 import ListFilms from './ListFilms.vue'

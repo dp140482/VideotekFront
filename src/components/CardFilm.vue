@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { host } from './../server/settings.js'
+import { host } from '@/server/settings'
 
 export default {
-  name: "CardFilm",
+  name: 'CardFilm',
   props: {
     film: {
       type: Object,
