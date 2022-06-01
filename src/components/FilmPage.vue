@@ -68,10 +68,10 @@
               </li>
             </ul>
           </div>
-          <!-- FilmPlayers v-if="this.filmData.type === 'film' || this.filmData.type === 'video'"
+          <FilmPlayers v-if="this.filmData.type === 'film' || this.filmData.type === 'video'"
             :filmData="filmData"
             :isTrailerVisible="isTrailer"
-          /-->
+          />
         </div>
       </div>
       <!-- SerialWatchLine v-if="this.filmData.type === 'serial'" :serialData="filmData" /-->
@@ -100,12 +100,13 @@
 <script>
 // import Comment from './Comment.vue'
 // import SerialWatchLine from './SerialWatchLine.vue'
-// import FilmPlayers from './FilmPlayers.vue'
+import FilmPlayers from './FilmPlayers.vue'
 import axios from 'axios'
 import { host } from '@/server/settings.js'
 
 export default {
   name: "FilmPage",
+  components: { FilmPlayers },
   data: () => ({
     filmData: undefined,
     isTrailer: false,
