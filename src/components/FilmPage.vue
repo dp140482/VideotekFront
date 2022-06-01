@@ -1,8 +1,8 @@
 <template>
   <div class="film-page">
-    <div class="film-page-content">
+    <div class="film-page-content" v-if="filmData">
       <div class="film-data-block">
-        <div class="left-column" v-if="filmData">
+        <div class="left-column">
           <img :src="getImgUrl(filmData.image)" alt="film data" />
           <button class="btn">В избранное</button>
           <button
@@ -68,13 +68,13 @@
               </li>
             </ul>
           </div>
-          <FilmPlayers v-if="isFilm || isVideo"
+          <!-- FilmPlayers v-if="this.filmData.type === 'film' || this.filmData.type === 'video'"
             :filmData="filmData"
             :isTrailerVisible="isTrailer"
-          />
+          /-->
         </div>
       </div>
-      <SerialWatchLine v-if="isSerial" :serialData="filmData" />
+      <!-- SerialWatchLine v-if="this.filmData.type === 'serial'" :serialData="filmData" /-->
       <div class="film-page-vote">
         <div class="vote-text">
           <span v-if="this.filmData.type === 'film'">Оцените фильм: </span>
@@ -92,7 +92,7 @@
         </span>
       </div>
       <h2 class="underlined">Отзывы</h2>
-      <Comment :filmId="filmData.id" />
+      <!-- Comment :filmId="filmData.id" /-->
     </div>
   </div>
 </template>
@@ -102,17 +102,30 @@
 // import SerialWatchLine from './SerialWatchLine.vue'
 // import FilmPlayers from './FilmPlayers.vue'
 import axios from 'axios'
-import { host } from './../server/settings.js'
+import { host } from '@/server/settings.js'
 
 export default {
   name: "FilmPage",
   data: () => ({
-    filmData: null,
+    filmData: undefined,
     isTrailer: false,
+    voted: false,
+    isVoteDisabled: true,
   }),
   methods: {
     getImgUrl(img) {
       return host + '/images/' + img
+    },
+    getVBclass(item) {
+      if (this.voted === +item) return 'vote-btn vote-dis-btn'
+      return 'vote-btn'
+    },
+  },
+  computed: {
+    score: () => {
+      let array = []
+      for (let i = 1; i < 11; i++) array.push(i)
+      return array
     },
   },
   beforeCreate() {
