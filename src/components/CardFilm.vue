@@ -6,7 +6,7 @@
     -->
       <div class="poster">
         <img :src="getImgUrl(film.image)" alt="film" class="poster-img" />
-        <p class="score" v-if="film.score">{{ film.score }}</p>
+        <p class="score" v-if="film.rating">{{ (+film.rating).toPrecision(2) }}</p>
       </div>
       <p class="title">{{ film.title }}</p>
     <!--/router-link-->
@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     getImgUrl(img) {
-      console.log(host + '/images/' + img)
       return host + '/images/' + img
     }
   },

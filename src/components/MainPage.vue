@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-    <!-- FilmCarousel / -->
+    <FilmCarousel />
     <ListFilms header="Лучшие" :filmsList="ratingFilms" :key="getKey()" />
     <ListFilms header="Новинки" :filmsList="newestFilms" :key="getKey()" />
   </div>
@@ -10,13 +10,13 @@
 import axios from 'axios'
 import { host } from './../server/settings.js'
 import { v4 as uuid } from 'uuid'
-// import FilmCarousel from './FilmCarousel.vue'
+import FilmCarousel from './FilmCarousel.vue'
 import ListFilms from './ListFilms.vue'
 
 export default {
   name: 'MainPage',
   components: {
-    // FilmCarousel,
+    FilmCarousel,
     ListFilms
   },
   data: () => ({
