@@ -38,12 +38,12 @@
           <p v-if="filmData.genres && filmData.genres.length > 0">
             <em class="parameter">Жанр<span v-if="filmData.genres.length > 1">ы</span>:</em> {{ filmCategories }}
           </p>
-          <div v-if="filmData.directors && filmData.directors.length > 0" class="actors-paragraph">
-            <em class="param-paragraph parameter">Режиссёр<span v-if="filmData.directors.length > 1">ы</span>:</em>
+          <div v-if="directors && directors.length > 0" class="actors-paragraph">
+            <em class="param-paragraph parameter">Режиссёр<span v-if="directors.length > 1">ы</span>:</em>
             <ul class="directors-list inline-ul">
               <li
-                v-for="director in filmData.directors"
-                :key="director.id"
+                v-for="director in directors"
+                :key="director.route"
                 class="inline-li"
               >
                 <router-link
@@ -53,12 +53,12 @@
               </li>
             </ul>
           </div>
-          <div v-if="filmData.actors && filmData.actors.length > 0" class="actors-paragraph">
+          <div v-if="actors && actors.length > 0" class="actors-paragraph">
             <p class="param-paragraph parameter">В главных ролях:</p>
             <ul class="actors-list inline-ul">
               <li
-                v-for="actor in filmData.actors"
-                :key="actor.id"
+                v-for="actor in actors"
+                :key="actor.route"
                 class="inline-li"
               >
                 <router-link
@@ -109,6 +109,8 @@ export default {
   components: { Comment, FilmPlayers },
   data: () => ({
     filmData: undefined,
+    directors: null,
+    actors: null,
     isTrailer: false,
     voted: false,
     isVoteDisabled: true,
@@ -135,6 +137,18 @@ export default {
       .get(host + '/get-videocontent-info/' + filmRoute)
       .then(result => {
         this.filmData = result.data
+      })
+    axios
+      .get(host + '/get-directors/' + filmRoute)
+      .then(result => {
+        this.directors = result.data
+        console.log(this.directors)
+      })
+    axios
+      .get(host + '/get-actors/' + filmRoute)
+      .then(result => {
+        this.actors = result.data
+        console.log(this.actors)
       })
   },
 }
