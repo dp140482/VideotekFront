@@ -28,14 +28,12 @@ export default {
   },
   created () {
     axios
-      .post(host + '/get-films', { order: 'newest', arrayLength: 6 })
+      .post(host + '/get-videocontent', { order: 'newest', arrayLength: 6 })
       .then( result => {
-        console.log(result)
         this.newestFilms = result.data
-        console.log(this.newestFilms)
       })
     axios
-      .post(host + '/get-films', { order: 'rating', arrayLength: 6 })
+      .post(host + '/get-videocontent', { order: 'rating', arrayLength: 6 })
       .then( result => {
         this.ratingFilms = result.data
       })
