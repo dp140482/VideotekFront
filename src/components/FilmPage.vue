@@ -126,13 +126,11 @@ export default {
       .get(host + '/get-directors/' + filmRoute)
       .then(result => {
         this.directors = result.data
-        console.log(this.directors)
       })
     axios
       .get(host + '/get-actors/' + filmRoute)
       .then(result => {
         this.actors = result.data
-        console.log(this.actors)
       })
   },
 }

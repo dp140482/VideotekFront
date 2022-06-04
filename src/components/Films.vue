@@ -87,7 +87,7 @@ export default {
     refreshData() {
       if (this.filmsOrSerials === 'Films') {
         axios
-            .get(host + '/get-genres')
+            .post(host + '/get-genres', { contentType: 'film' })
             .then((result) => {
               this.updateGenres(result)
             })
@@ -109,7 +109,6 @@ export default {
           axios
               .get(host + '/get-number-of-films/'+ this.genreId)
               .then(result => {
-                console.log(result.data.count)
                 this.paginationLength = Math.ceil(result.data.count / 1)
               })
           axios
@@ -121,7 +120,7 @@ export default {
       }
       if (this.filmsOrSerials === 'Serials') {
         axios
-            .get(host + '/get-genres')
+            .post(host + '/get-genres', { contentType: 'serial' })
             .then((result) => {
               this.updateGenres(result)
             })
@@ -131,13 +130,6 @@ export default {
               this.updateAllFilms(result)
               this.paginationLength = null
             })
-        if (this.genreId != null) {
-          axios
-              .get('api/serials/genres/' + this.genreId)
-              .then((result) => {
-                this.genreFilms = result.data.data
-              })
-        }
       }
     }
   },
@@ -159,7 +151,6 @@ export default {
     this.filmsOrSerials = this.$route.name
     this.refreshData()
     this.getPaginationLength()
-
   },
 };
 </script>
