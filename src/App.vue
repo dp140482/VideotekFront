@@ -8,8 +8,7 @@
         absolute
         temporary
         height="100%"
-        v-model="drawer"
-      >
+        v-model="drawer">
         <div class="listLink">
           <router-link class="logo link" to="/main">
             <h1>VIDEOTEK</h1>
@@ -120,6 +119,10 @@ export default {
   }),
   beforeCreate() {
     document.body.className = 'app'
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    link.href = host + '/images/videotek.jpg';
+    document.head.appendChild(link)
   },
   created() {
     this.logo = host + '/images/videotek.jpg'
