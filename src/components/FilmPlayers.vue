@@ -4,13 +4,13 @@
       <transition name="fade">
         <div
           v-show="isTrailerVisible"
-          class="player"
+          class="player centered"
         >
           <Player :src="filmData.trailer" />
         </div>
       </transition>
     </div>
-    <div class="centered player-margins" v-if="filmData.video">
+    <div class="player-margins centered" v-if="filmData.video">
       <Player :src="filmData.video" />
     </div>
   </div>
@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style>
+.film-players {
+  margin-top: 40px;
+}
+
 .centered {
   display: flex;
   justify-content: center;

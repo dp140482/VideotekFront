@@ -191,8 +191,8 @@ export default {
 
 .btn-genre {
   border: 1px solid #eb5804;
-  padding: 2px 4px;
-  width: 15%;
+  padding: 4px 4px;
+  width: 235px;
   margin-bottom: 10px;
   color: #eb5804;
   transition: all 0.3s ease-in;
