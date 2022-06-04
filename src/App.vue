@@ -119,10 +119,6 @@ export default {
   }),
   beforeCreate() {
     document.body.className = 'app'
-    let link = document.createElement('link');
-    link.rel = 'icon';
-    link.href = host + '/images/videotek.jpg';
-    document.head.appendChild(link)
   },
   created() {
     this.logo = host + '/images/videotek.jpg'

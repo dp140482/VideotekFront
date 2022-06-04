@@ -7,7 +7,7 @@
       :width="width"
       :height="height"
     >
-      <source :src="src" type="video/mp4" />
+      <source :src="src" type="video/mp4;video/webm" />
     </video>
   </div>
 </template>
