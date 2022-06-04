@@ -47,11 +47,11 @@
           </v-toolbar-title>
 
           <v-spacer />
-          <!-- <Search />
-          <LoginButton />
-           v-btn icon>
+          <Search />
+          <!-- LoginButton / -->
+           <v-btn icon>
             <v-icon>mdi-heart</v-icon>
-          </v-btn -->
+          </v-btn>
         </v-app-bar>
         <router-view />
       </v-main>
@@ -96,12 +96,12 @@
 import { host } from './server/settings.js'
 /*
 import LoginButton from "./components/LoginButton"
-import Search from "./components/Search"
 */
+import Search from "./components/Search"
 
 export default {
   name: 'App',
-  // components: { /*Search, LoginButton*/ },
+  components: { Search/*, LoginButton*/ },
   data: () => ({
     drawer: false,
     group: null,
