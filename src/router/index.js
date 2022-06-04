@@ -36,16 +36,26 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  {
-    path: '/register',
-    name: 'Registration',
-    component: Registration
-  },
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   component: Login
+  // },
+  // {
+  //   path: '/register',
+  //   name: 'Registration',
+  //   component: Registration
+  // },
   {
     path: '/films',
     name: 'Films',
     component: Films
   },
+  // {
+  //   path: '/films/:route',
+  //   name: 'filmPage',
+  //   component: FilmPage
+  // },
   {
     path: '/serials',
     name: 'Serials',
