@@ -2,22 +2,16 @@
 <div>
   <div class="person-page" v-if="personData">
     <div class="person-page-content">
-      <div class="person-data-block">
+      <div class="person-data-block position">
         <div class="left-column" >
-          <img :src="getImgUrl(personData.img)" alt="person image"/>
+          <img :src="getImgUrl(personData.image)" alt="person image"/>
           <button class="backbtn" @click="$router.go(-1)">➔</button>
         </div>
         <div class="person-data">
           <h1>{{ personData.name }}</h1>
           <hr class="line" />
-          <div v-if="personData.description" class="biography">
-            {{personData.description}}
-          </div>
-          <div v-if="(personData.slug === 1)">
-            <em class="parameter">Должность:</em> Режиссёр
-          </div>
-          <div v-if="(personData.slug === 2)">
-            <em class="parameter">Должность:</em> Актёр
+          <div v-if="personData.biography" class="biography">
+            {{personData.biography}}
           </div>
           <div v-if="personData.birthday">
             <em class="parameter">Дата рождения:</em> {{ birthdayString }}
@@ -25,95 +19,44 @@
           <div v-if="personData.birthplace">
             <em class="parameter">Место рождения:</em> {{ personData.birthplace }}
           </div>
-          <div v-if="personData.height" class="last-parameter">
-            <em class="parameter">Рост:</em> {{ personData.height }} см
-          </div>
         </div>
       </div>
     </div>
   </div>
-  <div v-else> <h2>Информация отсутствует</h2> </div>
+  <div v-else> <h2>Информация отсутствует</h2></div>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
+import { host } from '@/server/settings.js'
+
 export default {
   name: 'PersonPage',
   data () {
     return {
-      person: null,
-      birthdayString: ''
+      personData: null,
+      birthdayString: null,
+      route: null,
     };
   },
   methods: {
     getImgUrl(img) {
-      return require("../assets/" + img).default;
+      console.log('img: ' + img)
+      return host + '/images/' + img
     },
-    searchPersonData() {
-      const personRoute = this.$route.params.route
-      const persona = JSON.parse(window.sessionStorage.getItem('persona'))
-      if (persona) {
-        this.person = persona.find( item => item.route === personRoute )
-      }
-    },
-    flatenPersona(videoDataArray) {
-      const persona = []
-      videoDataArray.forEach(video => {
-          video.directors.forEach(director => persona.push(director))
-          video.actors.forEach(actor => persona.push(actor))
-      })
-      return persona
-    },
-    addPersonaToStorage(persona) {
-      window.sessionStorage.setItem('persona',
-        JSON.stringify([
-          ...JSON.parse(window.sessionStorage.getItem('persona')),
-          ...persona
-        ])
-      )
-    },
-    finalPreparePerson() {
-      window.sessionStorage.setItem('personData', JSON.stringify(this.person))
-      document.title = 'VIDEOTEK - ' + this.person.name
-      const birthdate = new Date(this.person.birthday)
-      this.birthdayString = new Intl
+  },
+  beforeCreate() {
+    this.route = this.$route.params.route
+    axios
+      .get(host + '/get-person/' + this.route)
+      .then(result => {
+        this.personData = result.data
+        const birthdate = new Date(this.personData.birthday)
+        this.birthdayString = new Intl
           .DateTimeFormat('ru', { dateStyle: 'long' })
           .format(birthdate)
-    },
-    refreshFilmsAndPersona() {
-      axios
-        .get('/api/main')
-        .then((result) => {
-          const video = result.data.data
-          window.sessionStorage.setItem('video', JSON.stringify(video))
-          window.sessionStorage.setItem('persona', JSON.stringify([]))
-          this.addPersonaToStorage(this.flatenPersona(video))
-          this.searchPersonData()
-          this.finalPreparePerson()
-        })
-    }
-  },
-  created () {
-    this.searchPersonData()
-    if (! this.person) {
-      this.refreshFilmsAndPersona()
-      this.searchPersonData()
-    }
-    if (this.person) {
-      this.finalPreparePerson()
-    } else {
-      const personCandidate = JSON.parse(window.sessionStorage.getItem('personData'))
-      if (this.$route.params.route === personCandidate.route) {
-        this.person = personCandidate
-      } else {
-        this.$router.push('/404')
-      }
-    }
-  },
-  computed: {
-    personData() {
-      return this.person
-    }
+      })
   }
 }
 </script>
