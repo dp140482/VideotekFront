@@ -27,9 +27,6 @@ export default {
     getImgUrl(img) {
       return host + '/images/' + img
     }
-  },
-  created() {
-    console.log(this.film)
   }
 };
 </script>

@@ -9,8 +9,8 @@ import Media from '../components/Media.vue'
 import NewsArticlesPage from '../components/NewsArticlesPage.vue'
 import Login from '../components/Login.vue'
 import Registration from '../components/Registration.vue'
-import Page404 from '../components/Page404.vue'
 */
+import Page404 from '../components/Page404.vue'
 
 Vue.use(VueRouter)
 
@@ -66,12 +66,12 @@ const routes = [
     name: 'NewsArticlesPage',
     component: NewsArticlesPage
   },
+*/
   {
     path: '*',
     name: '404',
     component: Page404
   }
-  */
 ]
 
 const router = new VueRouter({

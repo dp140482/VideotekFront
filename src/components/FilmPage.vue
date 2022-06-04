@@ -19,16 +19,12 @@
           <div class="underlined position">
             <h1>{{ filmData.title }}</h1>
             <div class="score-block" v-if="filmData.rating">
-              Рейтинг: <strong>{{ filmData.rating }}</strong>
+              Рейтинг: <strong>{{ (+filmData.rating).toPrecision(2) }}</strong>
             </div>
           </div>
           <p v-if="filmData.agelimit" class="age-boundary">{{ filmData.agelimit }}+</p>
           <div v-if="filmData.description" v-html="filmData.description" class="film-page-description"></div>
-          <h2 class="underlined">
-            <span v-if="this.filmData.type === 'film'">О фильме</span>
-            <span v-if="this.filmData.type === 'serial'">О сериале</span>
-            <span v-if="this.filmData.type === 'video'">Об этом видео</span>
-          </h2>
+          <h2 class="underlined">{{ varAbout }}</h2>
           <p v-if="filmData.country">
             <em class="parameter">Страна:</em> {{ filmData.country }}
           </p>
@@ -68,67 +64,41 @@
               </li>
             </ul>
           </div>
-          <FilmPlayers v-if="this.filmData.type === 'film' || this.filmData.type === 'video'"
+          <FilmPlayers v-if="filmData.type === 'film' || filmData.type === 'video'"
             :filmData="filmData"
             :isTrailerVisible="isTrailer"
           />
+          <Vote :contentRoute="filmData.route" :contentType="filmData.type" />
+          <h2 class="underlined">Отзывы</h2>
+          <Comment :filmRoute="filmData.route" />
         </div>
       </div>
-      <!-- SerialWatchLine v-if="this.filmData.type === 'serial'" :serialData="filmData" /-->
-      <div class="film-page-vote">
-        <div class="vote-text">
-          <span v-if="this.filmData.type === 'film'">Оцените фильм: </span>
-          <span v-if="this.filmData.type === 'serial'">Оцените сериал: </span>
-          <span v-if="this.filmData.type === 'video'">Оцените видео: </span>
-        </div>
-        <span>
-          <button
-            v-for="item in score"
-            :key="item"
-            :disabled="isVoteDisabled"
-            :class="getVBclass(item)"
-            @click="vote(item)"
-          >{{ item }}</button>
-        </span>
-      </div>
-      <h2 class="underlined">Отзывы</h2>
-      <Comment :filmRoute="filmData.route" />
+      <!-- SerialWatchLine v-if="filmData.type === 'serial'" :serialData="filmData" /-->
     </div>
   </div>
 </template>
 
 <script>
-import Comment from './Comment.vue'
-// import SerialWatchLine from './SerialWatchLine.vue'
-import FilmPlayers from './FilmPlayers.vue'
+import Vote from './Vote'
+import FilmPlayers from './FilmPlayers'
+import Comment from './Comment'
+// import SerialWatchLine from './SerialWatchLine'
 import axios from 'axios'
 import { host } from '@/server/settings.js'
 
 export default {
   name: "FilmPage",
-  components: { Comment, FilmPlayers },
+  components: { Vote, Comment, FilmPlayers },
   data: () => ({
     filmData: undefined,
     directors: null,
     actors: null,
     isTrailer: false,
-    voted: false,
-    isVoteDisabled: true,
+    varAbout: null,
   }),
   methods: {
     getImgUrl(img) {
       return host + '/images/' + img
-    },
-    getVBclass(item) {
-      if (this.voted === +item) return 'vote-btn vote-dis-btn'
-      return 'vote-btn'
-    },
-  },
-  computed: {
-    score: () => {
-      let array = []
-      for (let i = 1; i < 11; i++) array.push(i)
-      return array
     },
   },
   beforeCreate() {
@@ -137,7 +107,21 @@ export default {
       .get(host + '/get-videocontent-info/' + filmRoute)
       .then(result => {
         this.filmData = result.data
-      })
+        switch (this.filmData.type) {
+          case 'film':
+            this.varAbout = 'О фильме'
+            this.varVote = 'фильм'
+            break;
+          case 'serial':
+            this.varAbout = 'О сериале'
+            this.varVote = 'сериал'
+            break;
+          case 'video':
+            this.varAbout = 'Об этом видео'
+            this.varVote = 'видео'
+            break;
+      }
+    })
     axios
       .get(host + '/get-directors/' + filmRoute)
       .then(result => {
@@ -200,7 +184,8 @@ export default {
   font-size: 25pt;
 }
 .film-page h2 {
-  font-size: 25pt;
+  font-size: 18pt;
+  margin-top: 30px;
 }
 .film-data .parameter {
   font-size: 15pt;
@@ -255,6 +240,7 @@ export default {
 
 .film-data-block {
   display: flex;
+  position: relative;
 }
 
 .age-boundary {
@@ -296,49 +282,22 @@ export default {
 }
 
 .backbtn {
-  font-size: 28pt;
+  font-size: 18pt;
   color: #eb5804;
-  border: 2px solid #eb5804;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  opacity: .8;
+  border: 1px solid #eb5804;
+  width: 40px;
+  height: 40px;
   margin: 30px auto;
   transform: rotate(180deg);
   transition: all 0.3s ease-in;
+  position: absolute;
+  top: -50px;
+  left: -50px;
 }
 .backbtn:hover {
   color: black;
   background-color: #eb5804;
-}
-
-.film-page-vote {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.vote-text {
-  font-size: 15pt;
-  padding-right: 30px;
-}
-
-.vote-btn {
-  width: 50px;
-  height: 50px;
-  margin: 0 10px;
-  border: 1px solid #eb5804;
-}
-.vote-btn:hover:not(:disabled) {
-  background-color: #eb5804;
-  color: black;
-}
-.vote-btn:disabled {
-  opacity: .5;
-}
-
-.vote-dis-btn {
-  background-color: orangered;
-  color: black;
 }
 
 .actors-paragraph {
