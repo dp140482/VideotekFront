@@ -74,6 +74,7 @@
         </div>
       </div>
       <!-- SerialWatchLine v-if="filmData.type === 'serial'" :serialData="filmData" /-->
+      <ToTopButton/>
     </div>
   </div>
 </template>
@@ -85,10 +86,11 @@ import Comment from './Comment'
 // import SerialWatchLine from './SerialWatchLine'
 import axios from 'axios'
 import { host } from '@/server/settings.js'
+import ToTopButton from "@/components/ToTopButton";
 
 export default {
   name: "FilmPage",
-  components: { Vote, Comment, FilmPlayers },
+  components: {ToTopButton, Vote, Comment, FilmPlayers },
   data: () => ({
     filmData: undefined,
     directors: null,
