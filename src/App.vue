@@ -48,7 +48,7 @@
 
           <v-spacer />
           <Search />
-          <!-- LoginButton / -->
+          <LoginButton />
            <v-btn icon>
             <v-icon>mdi-heart</v-icon>
           </v-btn>
@@ -92,16 +92,13 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import { host } from './server/settings.js'
-/*
 import LoginButton from "./components/LoginButton"
-*/
 import Search from "./components/Search"
 
 export default {
   name: 'App',
-  components: { Search/*, LoginButton*/ },
+  components: { Search, LoginButton },
   data: () => ({
     drawer: false,
     group: null,
