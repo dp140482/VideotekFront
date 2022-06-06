@@ -20,47 +20,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { host } from '@/server/settings.js'
+
 export default {
   name: 'Search',
   data: () => ({
     show: false,
     search: '',
-    jumpCounter: 0
+    // jumpCounter: 0
   }),
   methods: {
     onSearchClick() {
       this.show = ! this.show
-      if (this.show) this.updateData()
       this.search = ''
     },
-    searchFilm() { return null }
-    /*
     searchFilm() {
-      let found = this.allVideoItems.find(
-        item => item.title.toLocaleLowerCase() == this.search.toLocaleLowerCase()
-      )
-      if (!found) {
-        found = this.allVideoItems.find(
-          item => item.title.toLocaleLowerCase().includes(this.search.toLocaleLowerCase())
-        )
-      }
-      if (found) {
-        this.jumpCounter++
-        this.$router.push('/films/' + found.route)
-        if (this.jumpCounter > 0) this.$router.go()
-      }
+            axios
+        .post(host + '/go-search', { searchString: this.search })
+        .then(response => {
+          const result = response.data
+          console.log(result)
+          if (result.length === 1) {
+            // this.jumpCounter++
+            this.$router.push('/films/' + result[0].route)
+            this.$router.go()
+          }
+        })
     },
-    updateData() {
-      axios
-          .get("/api/main")
-          .then((result) => {
-            this.allVideoItems = result.data.data
-          })
-    }
-    */
-  },
-  created () {
-    // this.updateData()
   }
 }
 </script>
