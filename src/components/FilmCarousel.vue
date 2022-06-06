@@ -2,8 +2,7 @@
   <v-carousel cycle :show-arrows="false" height="60vh">
     <v-carousel-item v-for="(item, i) in carousel" :key="i">
       <router-link :to="{ name: 'filmPage', params: { route: item.route } }">
-<!--        TODO заменить item.image на item.poster-->
-        <img :src="getImgUrl(item.image)" class="carouselImg" alt="film"/>
+        <img :src="getImgUrl(item.poster)" class="carouselImg" alt="film"/>
       </router-link>
     </v-carousel-item>
   </v-carousel>
@@ -16,21 +15,6 @@ import axios from "axios";
 export default {
   name: 'FilmCarousel',
   data: () => ({
-    //TODO /* Перенести в базу данных */
-    // carouselImages: [
-    //   {
-    //     src: 'sherlock.jpg'
-    //   },
-    //   {
-    //     src: 'taboo.jpg'
-    //   },
-    //   {
-    //     src: 'gentlemen.jpg'
-    //   },
-    //   {
-    //     src: 'billions.jpg'
-    //   },
-    // ],
     carousel: []
   }),
   methods: {
@@ -54,7 +38,6 @@ export default {
             selection[n] = arr[x in taken ? taken[x] : x];
             taken[x] = --len in taken ? taken[len] : len;
           }
-          console.log(selection)
           this.carousel = selection
         })
   }
