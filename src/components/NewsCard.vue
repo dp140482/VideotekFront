@@ -2,7 +2,7 @@
     <div>
       <router-link
         class="router-link-news"
-        :to="{ name: 'home', params: { route: item.route } }"
+        :to="{ name: 'NewsArticlesPage', params: { route: item.route } }"
       >
         <div class="news-card">
           <img class="news-img" :src="getImgUrl(item.image)" alt="news"/>

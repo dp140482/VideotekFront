@@ -65,7 +65,6 @@ export default {
     axios
     .get(host + "/get-news")
       .then(result => {
-        console.log(result)
         this.news = result.data
         window.sessionStorage.setItem('news', JSON.stringify(this.news))
       })
