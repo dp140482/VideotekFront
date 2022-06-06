@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 import MainPage from '../components/MainPage.vue'
 import FilmPage from '../components/FilmPage.vue'
 import Films from '../components/Films.vue'
-/*
-import PersonPage from '../components/PersonPage.vue'
 import Media from '../components/Media.vue'
+import PersonPage from '../components/PersonPage.vue'
+/*
 import NewsArticlesPage from '../components/NewsArticlesPage.vue'
 import Login from '../components/Login.vue'
 import Registration from '../components/Registration.vue'
@@ -26,25 +26,14 @@ const routes = [
     component: MainPage
   },
   {
-    path: '/films/:route',
-    name: 'filmPage',
-    component: FilmPage
-  },
-  {
     path: '/films',
     name: 'Films',
     component: Films
   },
   {
-    path: '/serials',
-    name: 'Serials',
-    component: Films,
-  },
-  /*
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/films/:route',
+    name: 'filmPage',
+    component: FilmPage
   },
   {
     path: '/person/:route',
@@ -52,9 +41,20 @@ const routes = [
     component: PersonPage
   },
   {
+    path: '/serials',
+    name: 'Serials',
+    component: Films,
+  },
+  {
     path: '/media',
     name: 'Media',
     component: Media
+  },
+  /*
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/media/:route',
