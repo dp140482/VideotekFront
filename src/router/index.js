@@ -5,10 +5,10 @@ import FilmPage from '../components/FilmPage.vue'
 import Films from '../components/Films.vue'
 import Media from '../components/Media.vue'
 import PersonPage from '../components/PersonPage.vue'
-/*
-import NewsArticlesPage from '../components/NewsArticlesPage.vue'
 import Login from '../components/Login.vue'
 import Registration from '../components/Registration.vue'
+/*
+import NewsArticlesPage from '../components/NewsArticlesPage.vue'
 */
 import Page404 from '../components/Page404.vue'
 
@@ -50,12 +50,17 @@ const routes = [
     name: 'Media',
     component: Media
   },
-  /*
   {
     path: '/login',
     name: 'Login',
     component: Login
   },
+  {
+    path: '/registration',
+    name: 'Registration',
+    component: Registration
+  },
+  /*
   {
     path: '/media/:route',
     name: 'NewsArticlesPage',
