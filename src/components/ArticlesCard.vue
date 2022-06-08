@@ -1,16 +1,16 @@
 <template>
     <div>
       <router-link
-        class="router-link-news"
+        class="router-link-articles"
         :to="{ name: 'NewsArticlesPage', params: { route: item.route } }"
       >
-        <div class="news-card">
-          <img class="news-img" :src="getImgUrl(item.image)" alt="news"/>
-          <div class="title-block">
-            <h2 class="title-news">{{item.title}}</h2>
+        <div class="articles-card">
+          <img  class="img-articles" :src="getImgUrl(item.image)"/>
+          <div class="article-block">
+            <h2 class="articles-title">{{item.title}}</h2>
           </div>
-          <div class="date-block">
-            <p class="date-news">{{item.created_date}}</p>
+          <div>
+            <p class="articles-date">{{item.created_date}}</p>
           </div>
         </div>
       </router-link>
@@ -19,23 +19,24 @@
 
 <script>
 import { host } from '@/server/settings'
+
 export default {
-  name: 'NewsCard',
+  name: 'ArticlesCard',
   props: {
     item: {
       type: Object
     }
   },
-  methods: {
+   methods: {
     getImgUrl(image) {
-      return host + '/images/' + image
+     return host + '/images/' + image
     },
-  }, 
+  },
 }
 </script>
 
 <style scoped>
-.news-card{
+.articles-card{
     position: relative;
     width: auto;
     height: 420px;
@@ -45,36 +46,36 @@ export default {
     align-items: center;
     border-radius: 10px 0 10px 0;
 }
-.title-block{
-margin:10px;
+.img-articles{
+    width: 100%;
+    object-fit: contain;
+    height:auto;
+    margin: 0 auto;
+    border-radius: 10px 0  0;
 }
-.title-news{
+.article-block{
+  margin:10px;
+}
+.articles-title{
     color: black;
     font-size: 13pt;
     text-align: left;
 }
-.title-news:hover{
+.articles-title:hover{
   color:#EB5804;
 }
-.date-news{
+.articles-date{
     position: absolute;
     color: rgb(48, 45, 45);
     font-size: 12pt;
     bottom: 4px;
     left:15px;
 }
-.news-img{
-    width: 100%;
-    object-fit: contain;
-    height:auto;
-    margin: 0px auto;
-    border-radius: 10px 0  0;
-}
-.news-card:hover{
+.articles-card:hover{
     transform: scale(1.02);
     cursor: pointer;
 }
-.router-link-news{
+.router-link-articles{
   text-decoration: none;
   color: white;
 }

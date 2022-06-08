@@ -21,12 +21,22 @@
       </v-tab-item>
       <v-tab-item class="tab-item">
         <div class="list-articles">
-          
+          <ArticlesCard
+            v-for="item in this.articles"
+            :key="item.id"
+            :image="item.image"
+            :item="item"
+          />
         </div>
       </v-tab-item>
       <v-tab-item class="tab-item">
         <div class="list-video">
-          
+          <FilmCardMedia
+            v-for="film in this.filmCard"
+            :key="film.id"
+            :image="film.image"
+            :film="film"
+          />
         </div>
       </v-tab-item>
     </v-tabs>
@@ -40,15 +50,20 @@
 import { host } from '@/server/settings'
 import axios from 'axios'
 import NewsCard from '../components/NewsCard.vue'
-
+import ArticlesCard from '../components/ArticlesCard.vue'
+import FilmCardMedia from '../components/FilmCardMedia.vue'
 
 export default {
   name: 'Media',
   components: {
     NewsCard,
+    ArticlesCard,
+    FilmCardMedia,
   },
   data: () => ({
     news: null,
+    articles: null,
+    filmCard: null,
     tab: 0,
     tabActive: 0
   }),
@@ -68,6 +83,18 @@ export default {
         this.news = result.data
         window.sessionStorage.setItem('news', JSON.stringify(this.news))
       })
+    axios
+    .get(host + "/get-articles")
+    .then(result => {
+      this.articles = result.data
+       window.sessionStorage.setItem('articles', JSON.stringify(this.articles))
+    })
+    axios
+    .get(host + "/get-video")
+    .then(result => {
+      this.filmCard = result.data
+      window.sessionStorage.setItem('filmCard', JSON.stringify(this.filmCard))
+    })
   },
   beforeDestroy() {
     window.sessionStorage.setItem('MediaActiveTab', this.tab)
