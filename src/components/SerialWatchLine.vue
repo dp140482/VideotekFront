@@ -1,16 +1,26 @@
 <template>
-  <div class="seasons-comp">
-    <div class="seasons">
+  <div>
+    <div class="seasons" v-if="seasons && seasons.length > 1">
       Сезоны:
       <button
-        v-for="season in serialData.seasons"
-        :key="season.number"
+        v-for="season in seasons"
+        :key="season"
         :class="getVBclass(season)"
         @click="activate(season)"
-      >{{ season.number }}</button>
+      >{{ season }}</button>
     </div>
-    <div class="series-list">
-      <v-sheet>
+    <div class="episodes-container">
+      <div v-for="ep in episodes" :key="ep.id" class="episode-list">
+        <div v-if="ep.video" class="episode">
+          <Player :src="ep.video" />
+          Серия {{ ep.ep }}: {{ep.title}}
+        </div>
+        <div v-else class="episode-textlist">
+          Серия {{ ep.ep }}: {{ep.title}}
+        </div>
+      </div>
+    </div>
+      <!-- v-sheet>
         <v-slide-group show-arrows dark class="slider-style">
             <v-card>
               <v-row
@@ -27,8 +37,7 @@
               </v-row>
             </v-card>
         </v-slide-group>
-      </v-sheet>
-    </div>
+      </v-sheet -->
   </div>
 </template>
 
@@ -48,26 +57,42 @@ export default {
   data: () => ({
     activeSeason: 1,
     seasons: null,
+    episodes: null,
   }),
   methods: {
     activate (item) {
-      this.activeSeason = item.number
+      this.activeSeason = item
+      this.updateSeriesList()
       this.$forceUpdate()
     },
     getVBclass(season) {
-      if (this.activeSeason === season.number) return 'season-btn season-btn--active'
+      if (this.activeSeason === season) return 'season-btn season-btn--active'
       return 'season-btn'
+    },
+    updateSeriesList() {
+        axios
+          .post(host + '/get-episodes', {route: this.serialData.route, season: this.activeSeason})
+          .then(response => {
+            this.episodes = response.data
+          })
     }
   },
   computed: {
     getSeries () {
-      return this.serialData.seasons[this.activeSeason - 1].series
+      return this.seasons[this.activeSeason - 1].series
     }
   },
-  beforeCreate() {
+  created() {
     axios
-      .get(host + '/get-')    
-    this.seasons = 
+      .get(host + '/get-seasons-number/' + this.serialData.route)
+      .then(response => {
+        const seasonsNumber = response.data.count
+        this.seasons = []
+        for (let i = 0; i < seasonsNumber; i++) {
+          this.seasons.push(i+1)
+        }
+        this.updateSeriesList()
+      })
   }
 }
 </script>
@@ -76,19 +101,8 @@ export default {
 .seasons {
   font-size: 15pt;
   font-weight: bold;
-  text-indent: 270px;
-}
-
-.player-card {
-  padding: 0 40px;
-  margin: 20px 0;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-}
-
-.series-list {
-  margin: 80px 0;
+  margin: 10px 0;
+  padding: 10px 0;
 }
 
 .season-btn {
@@ -108,7 +122,21 @@ export default {
   color: black;
 }
 
-.seasons-comp {
-  margin-top: -80px;
+.episodes-container {
+  margin: 30px 0;
+}
+
+.episode-list {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.episode {
+  margin: 0 auto 20px;
+}
+
+.episode-textlist {
+  text-align: left;
 }
 </style>

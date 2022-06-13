@@ -68,12 +68,12 @@
             :filmData="filmData"
             :isTrailerVisible="isTrailer"
           />
+          <SerialWatchLine v-if="filmData.type === 'serial'" :serialData="filmData" />
           <Vote :contentRoute="filmData.route" :contentType="filmData.type" />
           <h2 class="underlined">Отзывы</h2>
           <Comment :filmRoute="filmData.route" />
         </div>
       </div>
-      <!-- SerialWatchLine v-if="filmData.type === 'serial'" :serialData="filmData" /-->
       <ToTopButton/>
     </div>
   </div>
@@ -83,14 +83,14 @@
 import Vote from './Vote'
 import FilmPlayers from './FilmPlayers'
 import Comment from './Comment'
-// import SerialWatchLine from './SerialWatchLine'
+import SerialWatchLine from './SerialWatchLine'
 import axios from 'axios'
 import { host } from '@/server/settings.js'
 import ToTopButton from "@/components/ToTopButton";
 
 export default {
   name: "FilmPage",
-  components: {ToTopButton, Vote, Comment, FilmPlayers },
+  components: {ToTopButton, Vote, Comment, FilmPlayers, SerialWatchLine },
   data: () => ({
     filmData: undefined,
     directors: null,

@@ -27,16 +27,16 @@ export default {
         .post(host + '/get-videocontent')
         .then(result => {
           const arr = result.data
-          let n = 4
-          let selection = new Array(n),
-              len = arr.length,
-              taken = new Array(len);
-          if (n > len)
-            throw new RangeError("getRandom: more elements taken than available");
+          let n = Math.min(arr.length, 4)
+          let selection = []
+          let taken = []
+          let x = Math.floor(Math.random() * arr.length);
           while (n--) {
-            const x = Math.floor(Math.random() * len);
-            selection[n] = arr[x in taken ? taken[x] : x];
-            taken[x] = --len in taken ? taken[len] : len;
+            while (taken.includes(x) || !arr[x].poster) {
+              x = Math.floor(Math.random() * arr.length)
+            }
+            taken.push(x)
+            selection.push(arr[x])  
           }
           this.carousel = selection
         })
